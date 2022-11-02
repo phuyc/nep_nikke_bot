@@ -8,8 +8,8 @@ const help = new EmbedBuilder()
 .setThumbnail('https://img-10.stickers.cloud/packs/977bc206-85d3-4882-bd71-a8ab12956a4e/webp/c8bf8419-c2e4-4810-ab71-862dfb67614e.webp')
 .addFields(
     { name: '/character', value: 'Looks up an character\'s profile **Example: /character volume**.' },
-    { name: '/skin (coming soon)', value: 'Displays character\'s skin (default excluded).' },
-    { name: '/list (coming soon)', value: 'Displays lists of characters or skins.'},
+    { name: '/skin', value: 'Displays character\'s skin (default only for now).' },
+    { name: '/list', value: 'Displays lists of characters or skins.'},
     { name: '/ping', value: 'Return latency.' },
     { name: ' /help', value: 'Displays this message' },
     { name: ' /info', value: 'Displays bot info.\n[Source](https://www.pixiv.net/en/artworks/97233960)' }

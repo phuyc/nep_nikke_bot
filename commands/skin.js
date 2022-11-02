@@ -21,7 +21,7 @@ module.exports = {
                 interaction.reply({ embeds: [embed] });
             } else {
                 // Send suggestion and reply with returned values
-                let suggestion = suggestMessage(name, 'character');
+                let suggestion = suggestMessage(name, 'skin');
                 await interaction.reply({ 
                     content: suggestion.content,
                     components: [suggestion.actionRow]
