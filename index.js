@@ -1,3 +1,4 @@
+const { GatewayIntentBits } = require("discord.js");
 const Discord = require("discord.js")
 const fs = require('node:fs');
 const path = require('node:path');
@@ -6,7 +7,10 @@ const { autoUpdate } = require("./functions/update");
 require("dotenv").config();
 
 
-const client = new Discord.Client({ intents: [Discord.GatewayIntentBits.Guilds,] });
+const client = new Discord.Client({ intents: [Discord.GatewayIntentBits.Guilds, 		
+											  Discord.GatewayIntentBits.GuildMessages,
+											  Discord.GatewayIntentBits.MessageContent
+										]});
 
 // Read all commands
 client.commands = new Discord.Collection();
@@ -19,6 +23,7 @@ for (const file of commandFiles) {
 	client.commands.set(command.data.name, command);
 }
 
+// Read all events
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
@@ -36,5 +41,5 @@ for (const file of eventFiles) {
 client.login(process.env.TOKEN);
 
 setInterval(() => {
-	autoUpdate();
+	autoUpdate()
 }, 180000);
