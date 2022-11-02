@@ -13,6 +13,7 @@ function suggest(name, type) {
     // Array of employees' name
     const names = [];
 
+    if (type === 'skin') type = 'character';
     let aliases = db.prepare(`SELECT name FROM ${type}s;`).all();
     for (let alias of aliases) {
         names.push(alias['name']);
