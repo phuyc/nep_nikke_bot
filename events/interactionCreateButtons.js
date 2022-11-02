@@ -26,30 +26,36 @@ module.exports = {
             if (!interaction.isButton()) return;
 
             if (['1', '2', '3'].includes(interaction.customId)) {
-                let messages = interaction.message.content.match(/^(.*)$/gm);
-                let type = messages[0].slice(17, -1).trim();
-
-                // Get the part that matters
-                let name = messages[interaction.customId].slice(3);
-
-                // Delete
-                if (timeout[interaction.message.id]) {
-                    clearTimeout(timeout[interaction.message.id]);
-                    interaction.message.delete();
-                    delete timeout[interaction.message.id];
+                try {
+                    let messages = interaction.message.content.match(/^(.*)$/gm);
+                    let type = messages[0].slice(17, -1).trim();
+    
+                    // Get the part that matters
+                    let name = messages[interaction.customId].slice(3);
+    
+                    // Delete
+                    if (timeout[interaction.message.id]) {
+                        clearTimeout(timeout[interaction.message.id]);
+                        interaction.message.delete();
+                        delete timeout[interaction.message.id];
+                    }
+                    let embed = {};
+    
+                    // Get slug and type
+                    let slug = getSlug(name, type);
+                    if (type === 'character') {
+                        embed = await createCharacterSkillEmbed(slug['slug']);
+                    } else if (type == 'skin') {
+                        embed = await createSkinEmbed(slug['slug']);
+                    }
+    
+                    // Send embed
+                    interaction.channel.send({ embeds: [embed] });
+                } catch (error) {
+                    console.error(error);
+                    await interaction.reply({ content: 'There was an error while handling this button!', ephemeral: true });
                 }
-                let embed = {};
 
-                // Get slug and type
-                let slug = getSlug(name, type);
-                if (type === 'character') {
-                    embed = await createCharacterSkillEmbed(slug['slug']);
-                } else if (type == 'skin') {
-                    embed = await createSkinEmbed(slug['slug']);
-                }
-
-                // Send embed
-                interaction.channel.send({ embeds: [embed] });
             }
         })
 	},
