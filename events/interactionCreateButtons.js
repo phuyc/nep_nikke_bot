@@ -6,6 +6,8 @@ const { createCharacterSkillEmbed } = require('../functions/createCharacterSkill
 const { createSkinEmbed } = require('../functions/createSkinEmbed');
 const db = Database("./nikke.db");
 
+
+
 // Mutex
 const mutex = new Mutex();
 
@@ -22,23 +24,27 @@ function getSlug(name, type) {
 module.exports = {
 	name: Events.InteractionCreate,
 	async execute(interaction) {
-        await mutex.runExclusive(async () => {
-            if (!interaction.isButton()) return;
+        if (!interaction.isButton()) return;
 
+        await mutex.runExclusive(async () => {
             if (['1', '2', '3'].includes(interaction.customId)) {
-                try {
                     let messages = interaction.message.content.match(/^(.*)$/gm);
                     let type = messages[0].slice(17, -1).trim();
     
                     // Get the part that matters
                     let name = messages[interaction.customId].slice(3);
-    
+                    
                     // Delete
-                    if (timeout[interaction.message.id]) {
-                        clearTimeout(timeout[interaction.message.id]);
-                        interaction.message.delete();
-                        delete timeout[interaction.message.id];
+                    if (timeout[interaction.message.id] && interaction.channel) {
+                        if (!interaction.message.deletable) {
+                            await interaction.reply({ content: 'Nep does not have permission to delete this ', ephemeral: true });
+                            return;
+                        }
+                            clearTimeout(timeout[interaction.message.id]);
+                            delete timeout[interaction.message.id];
+                            interaction.message.delete();
                     }
+
                     let embed = {};
     
                     // Get slug and type
@@ -50,12 +56,7 @@ module.exports = {
                     }
     
                     // Send embed
-                    interaction.channel.send({ embeds: [embed] });
-                } catch (error) {
-                    console.error(error);
-                    await interaction.reply({ content: 'There was an error while handling this button!', ephemeral: true });
-                }
-
+                    interaction.channel ? await interaction.channel.send({ embeds: [embed] }) : await interaction.reply({ embeds: [embed]});
             }
         })
 	},
