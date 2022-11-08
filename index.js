@@ -6,11 +6,16 @@ const { autoUpdate } = require("./functions/update");
 
 require("dotenv").config();
 
+// ? Fixed a bug that occurs when bot doesn't have enough permission (./events/interactionCreateButton)
+// ? Fixed a bug where bot crashes while handling buttons in dm (./events/interactionCreateButton)
+// ! Fix a bug where bot will shutdown if the suggestion get deleted before the bot delete it (./events/interactionCreateButton)
+// ! Make bot online again after crash
 
-const client = new Discord.Client({ intents: [Discord.GatewayIntentBits.Guilds, 		
-											  Discord.GatewayIntentBits.GuildMessages,
-											  Discord.GatewayIntentBits.MessageContent
-										]});
+const client = new Discord.Client({
+	intents: [GatewayIntentBits.Guilds, 		
+			  GatewayIntentBits.GuildMessages,
+			  GatewayIntentBits.MessageContent
+		]});
 
 // Read all commands
 client.commands = new Discord.Collection();
@@ -41,5 +46,9 @@ for (const file of eventFiles) {
 client.login(process.env.TOKEN);
 
 setInterval(() => {
-	autoUpdate()
+	try {
+		autoUpdate();
+	} catch (error) {
+	console.error(error);	
+	}
 }, 180000);
