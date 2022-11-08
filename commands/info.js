@@ -3,6 +3,7 @@ const { randomColor } = require("../functions/randomColor");
 
 const info = new EmbedBuilder()
         .setTitle('About')
+        .setDescription('[Invite nep to your server](https://discord.com/api/oauth2/authorize?client_id=1034494981055971408&permissions=265216&scope=bot%20applications.commands)')
         .setThumbnail('https://preview.redd.it/kt3311mn5bp01.png?auto=webp&s=e420455ca8880f533a66514151a197f0f89adce6')
         .addFields(
                 { name: 'Bot Info', value: 'A bot to look up various information from the game Nikke: Goddess of Victory\n**Creator:** nepnep\n**Data provided by:** [Prydwen](https://prydwen.gg)', inline: true},
