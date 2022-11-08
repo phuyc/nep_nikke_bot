@@ -24,7 +24,7 @@ async function createCharacterSkillEmbed(name) {
     // Create embed
     let profile = new EmbedBuilder()
     .setTitle(`[${json.rarity}] ${json.name}`)
-    .setDescription(`[Check out our detail ratings and reviews](https://www.prydwen.gg/nikke/characters/${name.trim().replace(/ /g, "-").toLowerCase()})`)
+    .setDescription(`[Check out our detailed ratings and reviews](https://www.prydwen.gg/nikke/characters/${name.trim().replace(/ /g, "-").toLowerCase()})`)
     .setThumbnail(`https://prydwen.gg${json.smallImage.localFile.childImageSharp.gatsbyImageData.images.fallback.src}`)
     .setColor(randomColor())
     .setTimestamp()
@@ -37,8 +37,8 @@ async function createCharacterSkillEmbed(name) {
         // Field 1.2 (Details right)                            
         { name: '\u200b', value: `**Element**: ${ELEMENTS[json.element] ?? json.element}\n**Burst type**: ${BURSTTYPES[json.burstType] ?? json.burstType}`, inline: true },
         
-        // Field 2 (PVE Rating)                  
-        { name: 'RATINGS', value: `**Overall**: ${RATINGS[json.ratings.overall] ?? '?'}` + ' ' + `**PVE**: ${RATINGS[json.ratings.pve] ?? '?'}` + ' ' + `**PVP**: ${RATINGS[json.ratings.pvp] ?? '?'}` },
+        // ! Field 2 (Ratings) Temporarily hide pve and pvp ratings                  
+        { name: 'RATINGS', value: `**Overall**: ${RATINGS[json.ratings.overall] ?? '?'}`},// + ' ' + `**PVE**: ${RATINGS[json.ratings.pve] ?? '?'}` + ' ' + `**PVP**: ${RATINGS[json.ratings.pvp] ?? '?'}` },
 
         // Normal Attack
         { name: 'SKILLS', value: `**${SIGHTS[json.weapon] ?? ''}Normal Attack [<:icon_control:1035953548111904768>${json.controlMode}] [<:icon_ammo:1035953602839203942> ${json.ammoCapacity} ammo] [<:icon_reload:1035953550150352936> ${json.reloadTime} seconds]:**${basicAttackDescription}`}
