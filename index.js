@@ -8,8 +8,9 @@ require("dotenv").config();
 
 // ? Fixed a bug that occurs when bot doesn't have enough permission (./events/interactionCreateButton)
 // ? Fixed a bug where bot crashes while handling buttons in dm (./events/interactionCreateButton)
-// ! Fix a bug where bot will shutdown if the suggestion get deleted before the bot delete it (./events/interactionCreateButton)
-// ! Make bot online again after crash
+// TODO Fix a bug where bot will shutdown if the suggestion get deleted before the bot delete it (./events/interactionCreateButton)
+// TODO Make bot online again after crash
+// TODO Fix a bug where bot will shutdown (something with deleting msg again)
 
 const client = new Discord.Client({
 	intents: [GatewayIntentBits.Guilds, 		
