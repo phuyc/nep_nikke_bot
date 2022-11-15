@@ -1,4 +1,4 @@
-const { Events } = require('discord.js');
+const { Events, PermissionsBitField } = require('discord.js');
 const Mutex = require('async-mutex').Mutex;
 const Database = require("better-sqlite3");
 const { timeout } = require('../commands/character');
@@ -25,6 +25,10 @@ module.exports = {
 	name: Events.InteractionCreate,
 	async execute(interaction) {
         if (!interaction.isButton()) return;
+        if (!interaction.appPermissions.has(PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ViewChannel)) {
+            await interaction.reply("nep does not have permission to send messages here.");
+            return;
+        }
 
         await mutex.runExclusive(async () => {
             if (['1', '2', '3'].includes(interaction.customId)) {
@@ -35,15 +39,13 @@ module.exports = {
                     let name = messages[interaction.customId].slice(3);
                     
                     // Delete
-                    if (timeout[interaction.message.id] && interaction.channel) {
-                        if (!interaction.message.deletable) {
-                            await interaction.reply({ content: 'Nep does not have permission to delete this ', ephemeral: true });
-                            return;
-                        }
-                            clearTimeout(timeout[interaction.message.id]);
-                            delete timeout[interaction.message.id];
-                            interaction.message.delete();
+                    if (!interaction.message.deletable) {
+                        await interaction.reply({ content: 'Nep does not have permission to delete this ', ephemeral: true });
+                        return;
                     }
+                        clearTimeout(timeout[interaction.message.id]);
+                        delete timeout[interaction.message.id];
+                        interaction.message.delete();
 
                     let embed = {};
     

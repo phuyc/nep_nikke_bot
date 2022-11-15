@@ -4,6 +4,10 @@ module.exports = {
 	name: Events.InteractionCreate,
 	async execute(interaction) {
 		if (!interaction.isChatInputCommand()) return;
+		if (!interaction.inGuild()) {
+			await interaction.reply("Don't try to casually slide into my DM! Add me to your server in order to use my commands.");
+			return;
+		};
 
 		const command = interaction.client.commands.get(interaction.commandName);
 
