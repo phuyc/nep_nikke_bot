@@ -32,7 +32,7 @@ async function createCharacterSkillEmbed(name) {
     .addFields(
 
         // Field 1.1 (Details left)
-        { name: 'DETAILS', value: `**Class**: ${CLASSES[json.class] ?? json.class}\n**Weapon**:  ${WEAPON[json.weapon] ?? json.weapon}`, inline: true },        
+        { name: 'DETAILS', value: `**Class**: ${CLASSES[json.class] ?? json.class}\n**Weapon**: ${WEAPON[json.weapon] ?? json.weapon}`, inline: true },        
         
         // Field 1.2 (Details right)                            
         { name: '\u200b', value: `**Element**: ${ELEMENTS[json.element] ?? json.element}\n**Burst type**: ${BURSTTYPES[json.burstType] ?? json.burstType}`, inline: true },
@@ -41,7 +41,7 @@ async function createCharacterSkillEmbed(name) {
         { name: 'RATINGS', value: `**Overall**: ${RATINGS[json.ratings.overall] ?? '?'}`},// + ' ' + `**PVE**: ${RATINGS[json.ratings.pve] ?? '?'}` + ' ' + `**PVP**: ${RATINGS[json.ratings.pvp] ?? '?'}` },
 
         // Normal Attack
-        { name: 'SKILLS', value: `**${SIGHTS[json.weapon] ?? ''}Normal Attack [<:icon_control:1035953548111904768>${json.controlMode}] [<:icon_ammo:1035953602839203942> ${json.ammoCapacity} ammo] [<:icon_reload:1035953550150352936> ${json.reloadTime} seconds]:**${basicAttackDescription}`}
+        { name: 'SKILLS', value: `**${SIGHTS[json.weapon] ?? ''}Normal Attack [<:icon_control:1035953548111904768>${json.controlMode}] [<:icon_ammo:1035953602839203942>${json.ammoCapacity} ammo] [<:icon_reload:1035953550150352936> ${json.reloadTime} seconds]:**${basicAttackDescription}`}
     );
     
     // Skills
@@ -80,7 +80,7 @@ async function createCharacterSkillEmbed(name) {
 }
 
 
-module.exports = { createCharacterSkillEmbed }
+module.exports = { createCharacterSkillEmbed };
 
 
 const RATINGS = {
