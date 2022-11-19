@@ -38,7 +38,7 @@ async function createCharacterSkillEmbed(name) {
         { name: '\u200b', value: `**Element**: ${ELEMENTS[json.element] ?? json.element}\n**Burst type**: ${BURSTTYPES[json.burstType] ?? json.burstType}`, inline: true },
         
         // ! Field 2 (Ratings) Temporarily hide pve and pvp ratings                  
-        { name: 'RATINGS', value: `**Overall**: ${RATINGS[json.ratings.overall] ?? '?'}`},// + ' ' + `**PVE**: ${RATINGS[json.ratings.pve] ?? '?'}` + ' ' + `**PVP**: ${RATINGS[json.ratings.pvp] ?? '?'}` },
+        { name: 'RATINGS', value: `**Overall**: ${RATINGS[json.ratings.overall] ?? '?'} **Bugged**: ${RATINGS[json.ratings.bugged] ?? '?'}`}, // + ' ' + `**PVE**: ${RATINGS[json.ratings.pve] ?? '?'}` + ' ' + `**PVP**: ${RATINGS[json.ratings.pvp] ?? '?'}` },
 
         // Normal Attack
         { name: 'SKILLS', value: `**${SIGHTS[json.weapon] ?? ''}Normal Attack [<:icon_control:1035953548111904768>${json.controlMode}] [<:icon_ammo:1035953602839203942>${json.ammoCapacity} ammo] [<:icon_reload:1035953550150352936> ${json.reloadTime} seconds]:**${basicAttackDescription}`}
