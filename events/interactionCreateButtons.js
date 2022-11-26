@@ -1,7 +1,7 @@
 const { Events, PermissionsBitField } = require('discord.js');
 const Mutex = require('async-mutex').Mutex;
 const Database = require("better-sqlite3");
-const { timeout } = require('../commands/character');
+const { timeout } = require('../commands/nikke');
 const { createCharacterSkillEmbed } = require('../functions/createCharacterSkillEmbed');
 const { createSkinEmbed } = require('../functions/createSkinEmbed');
 const db = Database("./nikke.db");
@@ -25,7 +25,7 @@ module.exports = {
 	name: Events.InteractionCreate,
 	async execute(interaction) {
         if (!interaction.isButton()) return;
-        if (!interaction.appPermissions.has(PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ViewChannel)) {
+        if (![PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.UseExternalEmojis]) {
             await interaction.reply("nep does not have permission to send messages here.");
             return;
         }
@@ -60,6 +60,6 @@ module.exports = {
                     // Send embed
                     interaction.channel ? await interaction.channel.send({ embeds: [embed] }) : await interaction.reply({ embeds: [embed]});
             }
-        })
+        }).catch()
 	},
 };
