@@ -7,7 +7,7 @@ const help = new EmbedBuilder()
 .setDescription('/help')
 .setThumbnail('https://img-10.stickers.cloud/packs/977bc206-85d3-4882-bd71-a8ab12956a4e/webp/c8bf8419-c2e4-4810-ab71-862dfb67614e.webp')
 .addFields(
-    { name: '/character', value: 'Looks up an character\'s profile\n**Example: /character volume**.' },
+    { name: '/nikke', value: 'Looks up a nikke\'s profile\n**Example: /nikke volume**.' },
     { name: '/skin', value: 'Displays character\'s skin (default only for now).' },
     { name: '/list', value: 'Displays lists of characters or skins.'},
     { name: '/ping', value: 'Return latency.' },

@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("discord.js");
 const { createSkinEmbed } = require("../functions/createSkinEmbed");
 const { suggestMessage } = require("../functions/suggest");
-const { timeout } = require("./character");
+const { timeout } = require("./nikke");
 
 module.exports = {
     data: new SlashCommandBuilder()

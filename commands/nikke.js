@@ -6,8 +6,8 @@ const timeout = [];
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('character')
-        .setDescription('Displays the information of a character')
+        .setName('nikke')
+        .setDescription('Displays the information of a nikke')
         .addStringOption(option => 
             option.setName('name')
                 .setDescription('name of the character')
