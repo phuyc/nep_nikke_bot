@@ -37,8 +37,10 @@ async function createCharacterSkillEmbed(name) {
         // Field 1.2 (Details right)                            
         { name: '\u200b', value: `**Element**: ${ELEMENTS[json.element] ?? json.element}\n**Burst type**: ${BURSTTYPES[json.burstType] ?? json.burstType}`, inline: true },
         
-        // ! Field 2 (Ratings) Temporarily hide pve and pvp ratings                  
-        { name: 'RATINGS', value: `**Overall**: ${RATINGS[json.ratings.overall] ?? '?'} **Bugged**: ${RATINGS[json.ratings.bugged] ?? '?'}`}, // + ' ' + `**PVE**: ${RATINGS[json.ratings.pve] ?? '?'}` + ' ' + `**PVP**: ${RATINGS[json.ratings.pvp] ?? '?'}` },
+        // Field 2 (Ratings)                  
+        { name: 'RATINGS', value: `**Story (1-7)**: ${RATINGS[json.ratings.storyEarly] ?? json.ratings.storyEarly} **Story (8-13)**: ${RATINGS[json.ratings.storyMid] ?? json.ratings.storyMid}`
+                                + `**Story (14-18)**: ${RATINGS[json.ratings.storyEnd] ?? json.ratings.storyEnd}\n **Boss (solo)**: ${RATINGS[json.ratings.bossSolo] ?? json.ratings.bossSolo} `
+                                + `**Boss (adds)**: ${RATINGS[json.ratings.bossAdds] ?? json.ratings.bossAdds} **PVP**: ${RATINGS[json.ratings.pvp] ?? json.ratings.pvp}`},
 
         // Normal Attack
         { name: 'SKILLS', value: `**${SIGHTS[json.weapon] ?? ''}Normal Attack [<:icon_control:1035953548111904768>${json.controlMode}] [<:icon_ammo:1035953602839203942>${json.ammoCapacity} ammo] [<:icon_reload:1035953550150352936> ${json.reloadTime} seconds]:**${basicAttackDescription}`}
@@ -53,7 +55,7 @@ async function createCharacterSkillEmbed(name) {
         skillEmbed += `**${SLOTS[json.skills[i].slot] ?? json.skills[i].slot}: ${json.skills[i].name}`;
         
         // Check for cooldown
-        if (json.skills[i].cooldown) {
+        if (json.skills[i].cooldown) {  
             skillEmbed += ` [${json.skills[i].cooldown} seconds]`;
         };
         
@@ -64,7 +66,7 @@ async function createCharacterSkillEmbed(name) {
         // Loop through descripton
         for (let j = 0; j < skillLevel10.content.length; j++) {
             for (let k = 0; k < skillLevel10.content[j].content.length; k++) {
-                if (skillLevel10.content[j].content[k].value.length > 5) {
+                if (skillLevel10.content[j].content[k].value.length > 8) {
                     skillDescriptionLevel10 += skillLevel10.content[j].content[k].value + '\n';
                 } else {
                     skillDescriptionLevel10 += skillLevel10.content[j].content[k].value + ' ';
@@ -84,6 +86,7 @@ module.exports = { createCharacterSkillEmbed };
 
 
 const RATINGS = {
+    "1": "?",
     "4": "<:F_:1037311733833928704>",
     "5": "<:D_:1024285330217640038>",
     "6": "<:C_:1024285328246313041>",
@@ -91,7 +94,7 @@ const RATINGS = {
     "8": "<:A_:1024285324345622529>",
     "9": "<:S_:1024285317643108383>",
     "10": "<:SS:1024285320268746762>",
-    "11": "<:SSS:1024285322433015858>"
+    "11": "<:SSS:1024285322433015858>",
 };
 
 const BURSTTYPES = {
