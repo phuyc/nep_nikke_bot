@@ -6,26 +6,16 @@ const { createCharacterSkillEmbed } = require('../functions/createCharacterSkill
 const { createSkinEmbed } = require('../functions/createSkinEmbed');
 const db = Database("./nikke.db");
 
-
-
 // Mutex
 const mutex = new Mutex();
 
-// Get slug
-function getSlug(name, type) {
-    // Find slug in DB
-    if (type === 'skin') type = 'character';
-    let slug = db.prepare(`SELECT slug FROM ${type}s WHERE name=?;`).get(name);
-    
-    // Return slug if found and the default if not found
-    return slug ?? name.trim().replace(" ", "-").toLowerCase();
-}
 
 module.exports = {
 	name: Events.InteractionCreate,
 	async execute(interaction) {
         if (!interaction.isButton()) return;
-        if (![PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.UseExternalEmojis]) {
+        // Check for permissions
+        if (!interaction.guild.members.me.permissionsIn(interaction.channel).has([PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.UseExternalEmojis])) {
             await interaction.reply("nep does not have permission to send messages here.");
             return;
         }
@@ -37,7 +27,7 @@ module.exports = {
     
                     // Get the part that matters
                     let name = messages[interaction.customId].slice(3);
-                    
+                        
                     // Delete
                     if (!interaction.message.deletable) {
                         await interaction.reply({ content: 'Nep does not have permission to delete this ', ephemeral: true });
@@ -60,6 +50,17 @@ module.exports = {
                     // Send embed
                     interaction.channel ? await interaction.channel.send({ embeds: [embed] }) : await interaction.reply({ embeds: [embed]});
             }
-        }).catch()
+        })
 	},
 };
+
+
+// Get slug
+function getSlug(name, type) {
+    // Find slug in DB
+    if (type === 'skin') type = 'character';
+    let slug = db.prepare(`SELECT slug FROM ${type}s WHERE name=?;`).get(name);
+    
+    // Return slug if found and the default if not found
+    return slug ?? name.trim().replace(" ", "-").toLowerCase();
+}
