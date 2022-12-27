@@ -29,12 +29,10 @@ module.exports = {
                 let reply = await interaction.fetchReply();
     
                 // Delete suggestion after 8 seconds
-                if (true) {
-                    timeout[reply.id] = setTimeout(() => {
-                        interaction.deleteReply();
-                        delete timeout[reply.id] 
-                    }, 8000);
-                }
+                timeout[reply.id] = setTimeout(() => {
+                    interaction.deleteReply();
+                    delete timeout[reply.id] 
+                }, 8000);
 
             }
         } catch (error) {

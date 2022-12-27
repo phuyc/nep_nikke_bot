@@ -3,7 +3,7 @@ const fs = require('node:fs');
 
 require("dotenv").config()
 
-const clientId = "1034494981055971408";
+const clientId = "1044237038532169798";
 
 const commands = [];
 // Grab all the command files from the commands directory you created earlier
