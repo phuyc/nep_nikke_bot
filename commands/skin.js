@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require("discord.js");
 const { createSkinEmbed } = require("../functions/createSkinEmbed");
-const { suggestMessage } = require("../functions/suggest");
-const { timeout } = require("./nikke");
+const { bestMatch } = require("../functions/bestMatch");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -20,17 +19,14 @@ module.exports = {
             if (embed) {
                 interaction.reply({ embeds: [embed] });
             } else {
-                // Send suggestion and reply with returned values
-                let suggestion = suggestMessage(name, 'skin');
-                await interaction.reply({ 
-                    content: suggestion.content,
-                    components: [suggestion.actionRow]
-                })
-    
-                let reply = await interaction.fetchReply();
-    
-                // Delete suggestion after 8 seconds
-                timeout[reply.id] = setTimeout(() => {interaction.deleteReply(); delete timeout[reply.id]}, 8000);
+                let match = bestMatch(name, 'character');
+                if (match) {
+                    embed = await createSkinEmbed(match);
+                    await interaction.reply({ embeds: [embed]});
+                } else {
+                    await interaction.reply({ content: "Couldn't find the character!", ephemeral: true });
+                    return;
+                }
             }
         } catch (error) {
             console.error(error);

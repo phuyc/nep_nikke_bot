@@ -1,8 +1,6 @@
 const { SlashCommandBuilder } = require("discord.js");
 const { createCharacterSkillEmbed } = require("../functions/createCharacterSkillEmbed");
-const { suggestMessage } = require('../functions/suggest')
-
-const timeout = [];
+const { bestMatch } = require('../functions/bestMatch')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -13,33 +11,21 @@ module.exports = {
                 .setDescription('name of the character')
                 .setRequired(true)),
     async execute(interaction) {
-        try {
-            const name = interaction.options.getString('name').toLowerCase().trim();
-            let profile = await createCharacterSkillEmbed(name);
-    
-            if (profile) {
-                await interaction.reply({ embeds: [profile] });
+        const name = interaction.options.getString('name').toLowerCase().trim();
+        let profile = await createCharacterSkillEmbed(name);
+        if (profile) {
+            await interaction.reply({ embeds: [profile] });
+            return;
+        } else {
+            let match = bestMatch(name, 'character');
+            if (match) {
+                profile = await createCharacterSkillEmbed(match);
+                await interaction.reply({ embeds: [profile]});
+                return;
             } else {
-                let suggestion = suggestMessage(name, 'character');
-                await interaction.reply({ 
-                    content: suggestion.content,
-                    components: [suggestion.actionRow]
-                })
-    
-                let reply = await interaction.fetchReply();
-    
-                // Delete suggestion after 8 seconds
-                timeout[reply.id] = setTimeout(() => {
-                    interaction.deleteReply();
-                    delete timeout[reply.id] 
-                }, 8000);
-
+                await interaction.reply({ content: "Couldn't find the character!", ephemeral: true });
+                return;
             }
-        } catch (error) {
-            console.error(error);
-			await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
         }
-
-    },
-    timeout,
+    }
 }

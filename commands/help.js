@@ -11,8 +11,8 @@ const help = new EmbedBuilder()
     { name: '/skin', value: 'Displays character\'s skin (default only for now).' },
     { name: '/list', value: 'Displays lists of characters or skins.'},
     { name: '/ping', value: 'Return latency.' },
-    { name: ' /help', value: 'Displays this message' },
-    { name: ' /info', value: 'Displays bot info.\n[Source](https://www.pixiv.net/en/artworks/97233960)' }
+    { name: '/help', value: 'Displays this message' },
+    { name: '/info', value: 'Displays bot info.\n[Source](https://www.pixiv.net/en/artworks/97233960)' }
 )
 .setImage('https://preview.redd.it/a7nuvufkx4w81.jpg?auto=webp&s=dd2a125315afd3f03d4fd38b1e54b0782990fae1')
 .setTimestamp()
