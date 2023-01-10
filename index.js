@@ -42,7 +42,7 @@ for (const file of eventFiles) {
 }
 
 
-client.login(process.env.TEST);
+client.login(process.env.TOKEN);
 
 setInterval(async () => {
 	try {
