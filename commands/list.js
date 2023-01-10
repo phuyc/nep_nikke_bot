@@ -40,7 +40,7 @@ module.exports = {
         // TODO: handle list
         const type = interaction.options.getString('type');
         if (type === 'skins') {
-            interaction.reply({ content: 'This command is not available at the moment.', ephemeral: true });
+            interaction.editReply({ content: 'This command is not available at the moment.', ephemeral: true });
             return;
         }
 
@@ -60,6 +60,6 @@ module.exports = {
             list.addFields({ name: `[${rarity.rarity}]`, value: field });
         }
 
-        interaction.reply({ embeds: [list] });
+        interaction.editReply({ embeds: [list] });
     }
 }

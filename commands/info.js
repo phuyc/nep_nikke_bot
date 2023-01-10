@@ -18,6 +18,6 @@ module.exports = {
         .setName('info')
         .setDescription('Returns Bot info'),
     execute(interaction) {
-        interaction.reply({ embeds: [info.setColor(randomColor())] });
+        interaction.editReply({ embeds: [info.setColor(randomColor())] });
     }
 }

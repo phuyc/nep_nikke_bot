@@ -17,20 +17,20 @@ module.exports = {
             const name = interaction.options.getString('name').toLowerCase().trim();
             let embed = await createSkinEmbed(name);
             if (embed) {
-                interaction.reply({ embeds: [embed] });
+                interaction.editReply({ embeds: [embed] });
             } else {
                 let match = bestMatch(name, 'character');
                 if (match) {
                     embed = await createSkinEmbed(match);
-                    await interaction.reply({ embeds: [embed]});
+                    await interaction.editReply({ embeds: [embed]});
                 } else {
-                    await interaction.reply({ content: "Couldn't find the character!", ephemeral: true });
+                    await interaction.editReply({ content: "Couldn't find the character!", ephemeral: true });
                     return;
                 }
             }
         } catch (error) {
             console.error(error);
-			await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+			await interaction.editReply({ content: 'There was an error while executing this command!', ephemeral: true });
         }
     }
 }

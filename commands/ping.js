@@ -5,6 +5,6 @@ module.exports = {
         .setName('ping')
         .setDescription('Returns API Latency'),
     execute(interaction) {
-        interaction.reply(`🏓API Latency is ${Math.round(interaction.client.ws.ping)}ms`);
+        interaction.editReply(`🏓API Latency is ${Math.round(interaction.client.ws.ping)}ms`);
     }
 }

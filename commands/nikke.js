@@ -14,16 +14,16 @@ module.exports = {
         const name = interaction.options.getString('name').toLowerCase().trim();
         let profile = await createCharacterSkillEmbed(name);
         if (profile) {
-            await interaction.reply({ embeds: [profile] });
+            await interaction.editReply({ embeds: [profile] });
             return;
         } else {
             let match = bestMatch(name, 'character');
             if (match) {
                 profile = await createCharacterSkillEmbed(match);
-                await interaction.reply({ embeds: [profile]});
+                await interaction.editReply({ embeds: [profile]});
                 return;
             } else {
-                await interaction.reply({ content: "Couldn't find the character!", ephemeral: true });
+                await interaction.editReply({ content: "Couldn't find the character!", ephemeral: true });
                 return;
             }
         }

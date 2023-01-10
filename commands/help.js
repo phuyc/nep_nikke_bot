@@ -24,6 +24,6 @@ module.exports = {
         .setName('help')
         .setDescription('Displays list of commands'),
     async execute(interaction) {
-        await interaction.reply({ embeds: [help.setColor(randomColor())] });
+        await interaction.editReply({ embeds: [help.setColor(randomColor())] });
     }
 }

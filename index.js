@@ -42,11 +42,11 @@ for (const file of eventFiles) {
 }
 
 
-client.login(process.env.TOKEN);
+client.login(process.env.TEST);
 
-setInterval(() => {
+setInterval(async () => {
 	try {
-		autoUpdate();
+		await autoUpdate();
 	} catch (error) {
 	console.error(error);	
 	}
