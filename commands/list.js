@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-const Database = require("better-sqlite3");
 const { randomColor } = require("../functions/randomColor");
+const Database = require("better-sqlite3");
 const db = Database("./nikke.db");
 
 function createList(type, rarity) {
