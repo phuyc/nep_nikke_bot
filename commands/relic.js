@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, ActionRowBuilder, SelectMenuBuilder } = require("discord.js");
+const { SlashCommandBuilder, ActionRowBuilder, StringSelectMenuBuilder } = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -28,13 +28,13 @@ module.exports = {
 
 const CHAPTERS = {
     "chapter_1": new ActionRowBuilder().addComponents(
-        new SelectMenuBuilder().setCustomId('0').setOptions([
+        new StringSelectMenuBuilder().setCustomId('0').setOptions([
                 { label: 'Outline for Round 1 of Recruitment', value: '0'},
                 { label: 'Outline for Round 2 of Recruitment', value: '1'},
                 { label: 'Outline for Round 3 of Recruitment', value: '2'},
             ])),
     "chapter_2": new ActionRowBuilder().addComponents(
-        new SelectMenuBuilder().setCustomId('1').setOptions([
+        new StringSelectMenuBuilder().setCustomId('1').setOptions([
                 { label: '100 Gems', value: '0'},
                 { label: 'February 7, XX (Relic)', value: '1'},
                 { label: '11:05 AM', value: '2'},
@@ -42,7 +42,7 @@ const CHAPTERS = {
                 { label: 'December 5, XX (Relic)', value: '4'},
             ])),
     "chapter_3": new ActionRowBuilder().addComponents(
-        new SelectMenuBuilder().setCustomId('2').setOptions([
+        new StringSelectMenuBuilder().setCustomId('2').setOptions([
                 { label: 'Observatory (Blueprint)', value: '0'},
                 { label: 'The Godness Fall (Music)', value: '1'},
                 { label: 'Police Station (Blueprint)', value: '2'},
@@ -56,7 +56,7 @@ const CHAPTERS = {
                 { label: 'Train Station (Blueprint)', value: '10' }
             ])),
     "chapter_4": new ActionRowBuilder().addComponents(
-        new SelectMenuBuilder().setCustomId('3').setOptions([
+        new StringSelectMenuBuilder().setCustomId('3').setOptions([
                 { label: '08:05 PM (Relic)', value: '0'},
                 { label: '500 Credits', value: '1'},
                 { label: 'Workshop (Blueprint)', value: '2'},
@@ -70,7 +70,7 @@ const CHAPTERS = {
                 { label: '05:37 PM (Relic)', value: '10'},
             ])),
     "chapter_5": new ActionRowBuilder().addComponents(
-        new SelectMenuBuilder().setCustomId('4').setOptions([
+        new StringSelectMenuBuilder().setCustomId('4').setOptions([
                 { label: 'Trendy Bar (Blueprint)', value: '0'},
                 { label: '2:01 PM (Relic)', value: '1'},
                 { label: 'Second Hand (Music)', value: '2'},
@@ -84,7 +84,7 @@ const CHAPTERS = {
                 { label: '4:17 PM (Relic)', value: '10'},
             ])),
     "chapter_6": new ActionRowBuilder().addComponents(
-        new SelectMenuBuilder().setCustomId('5').setOptions([
+        new StringSelectMenuBuilder().setCustomId('5').setOptions([
                 { label: '03:42 (Relic)', value: '0'},
                 { label: 'Cafe (Blueprint)', value: '1'},
                 { label: 'Frost Pillar (Music)', value: '2'},
@@ -98,7 +98,7 @@ const CHAPTERS = {
                 { label: '6:08 PM (Relic)', value: '10'},
             ])),
     "chapter_7": new ActionRowBuilder().addComponents(
-        new SelectMenuBuilder().setCustomId('6').setOptions([
+        new StringSelectMenuBuilder().setCustomId('6').setOptions([
                 { label: '10:01 AM (Relic)', value: '0'},
                 { label: 'Courthouse (Blueprint)', value: '1'},
                 { label: 'How To Secure Food (Relic)', value: '2'},
@@ -111,7 +111,7 @@ const CHAPTERS = {
                 { label: '2200 Credits', value: '9'},
             ])),
     "chapter_8": new ActionRowBuilder().addComponents(
-        new SelectMenuBuilder().setCustomId('7').setOptions([
+        new StringSelectMenuBuilder().setCustomId('7').setOptions([
                 { label: 'July 23, XX at 3:00 PM [Rainy] (Relic)', value: '0'},
                 { label: 'Clothing Store (Blueprint)', value: '1'},
                 { label: 'The Ruined City (Music)', value: '2'},
@@ -126,7 +126,7 @@ const CHAPTERS = {
                 { label: '3200 Credits', value: '11'},
             ])),
     "chapter_9": new ActionRowBuilder().addComponents(
-        new SelectMenuBuilder().setCustomId('8').setOptions([
+        new StringSelectMenuBuilder().setCustomId('8').setOptions([
                 { label: 'Self-Defense Training (Relic)', value: '0'},
                 { label: 'Radio Tower (Blueprint)', value: '1'},
                 { label: 'July 25, XX [Cloudy] (Relic)', value: '2'},
