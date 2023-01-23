@@ -1,9 +1,10 @@
 const { Events, EmbedBuilder } = require('discord.js');
+const { randomColor } = require('../functions/randomColor');
 
 module.exports = {
 	name: Events.InteractionCreate,
 	async execute(interaction) {
-		if (!interaction.isSelectMenu()) return;
+		if (!interaction.isStringSelectMenu()) return;
 		if (!interaction.inGuild()) {
 			await interaction.reply("Don't try to casually slide into my DM! Add me to your server in order to use my commands.");
 			return;
@@ -15,8 +16,8 @@ module.exports = {
 		const embed = new EmbedBuilder()
 			.setImage(RELICS[chapter][relic])
 			.setTimestamp()
-			.setFooter({ text: 'nepnep#1358', iconURL: 'https://store.playstation.com/store/api/chihiro/00_09_000/container/BE/nl/19/EP0031-CUSA03124_00-AV00000000000037/image?w=320&h=320&bg_color=000000&opacity=100&_version=00_09_000' });
-		
+			.setFooter({ text: 'nepnep#1358', iconURL: 'https://store.playstation.com/store/api/chihiro/00_09_000/container/BE/nl/19/EP0031-CUSA03124_00-AV00000000000037/image?w=320&h=320&bg_color=000000&opacity=100&_version=00_09_000' })
+			.setColor(randomColor());
 
 		await interaction.update({ embeds: [embed] });
 		return;
