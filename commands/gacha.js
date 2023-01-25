@@ -8,63 +8,67 @@ module.exports = {
         .setName('gacha')
         .setDescription('Simulate a 10-pull on the standard banner'),
     async execute(interaction) {
-
-        // Gacha
-        let results = gacha();
-        
-        // Declare the array of images to composite
-        const images = [];
-        
-        // Get a random nikke from the database for each result that has the matching rarity returned by gacha
-        for (let i = 0; i < results.length; i++) {
-
-            let name = db.prepare('SELECT name FROM characters WHERE rarity=? ORDER BY RANDOM() LIMIT 1').get(results[i]);
-        
-            // Throw Error if can't find any character in the database
-            if (!name) throw new Error('Character not in the database.');
+        try {
+                // Gacha
+            let results = gacha();
             
-            // Push images to array
-            images.push(
+            // Declare the array of images to composite
+            const images = [];
+            
+            // Get a random nikke from the database for each result that has the matching rarity returned by gacha
+            for (let i = 0; i < results.length; i++) {
 
-                // Card Background
-                {
-                    input: `./images/white.png`,
-                    top: 150 + (410 * Math.floor(i / 5)),
-                    left: 461 + 168 * (i % 5),
-                },           
+                let name = db.prepare('SELECT name FROM characters WHERE rarity=? ORDER BY RANDOM() LIMIT 1').get(results[i]);
+            
+                // Throw Error if can't find any character in the database
+                if (!name) throw new Error('Character not in the database.');
                 
-                // Top
-                {
-                    input:`./images/${results[i]}_top.png`,
-                    top: TOP[results[i]] + (410 * Math.floor(i / 5)),
-                    left: 461 + 168 * (i % 5),
-                },
-        
-                // Card
-                {
-                    input: `./images/${name.name}.png`,
-                    top: 150 + (410 * Math.floor(i / 5)),
-                    left: 461 + 168 * (i % 5),
-                },           
-        
-                // Bottom
-                {
-                    input: `./images/${results[i]}_bottom.png`,
-                    top: 350 + (410 * Math.floor(i / 5)),
-                    left: 461 + 168 * (i % 5),
-                },
-            )
-        };
-        
-        // Composite the images into bg.png and return gacha.png
-        await sharp("./images/bg.png")
-            .composite(images)
-            .toFile('gacha.png');
-        
-        const file = new AttachmentBuilder('./gacha.png');
+                // Push images to array
+                images.push(
 
-        // Send the image
-        await interaction.editReply({ files: [file] });
+                    // Card Background
+                    {
+                        input: `./images/white.png`,
+                        top: 150 + (410 * Math.floor(i / 5)),
+                        left: 461 + 168 * (i % 5),
+                    },           
+                    
+                    // Top
+                    {
+                        input:`./images/${results[i]}_top.png`,
+                        top: TOP[results[i]] + (410 * Math.floor(i / 5)),
+                        left: 461 + 168 * (i % 5),
+                    },
+            
+                    // Card
+                    {
+                        input: `./images/${name.name}.png`,
+                        top: 150 + (410 * Math.floor(i / 5)),
+                        left: 461 + 168 * (i % 5),
+                    },           
+            
+                    // Bottom
+                    {
+                        input: `./images/${results[i]}_bottom.png`,
+                        top: 350 + (410 * Math.floor(i / 5)),
+                        left: 461 + 168 * (i % 5),
+                    },
+                )
+            };
+            
+            // Composite the images into bg.png and return gacha.png
+            await sharp("./images/bg.png")
+                .composite(images)
+                .toFile('gacha.png');
+            
+            const file = new AttachmentBuilder('./gacha.png');
+
+            // Send the image
+            await interaction.editReply({ content: `<@${interaction.member.id}>`, files: [file] });
+        } catch (error) {
+            console.error(error);
+			await interaction.editReply({ content: 'There was an error while executing this command!', ephemeral: true });
+        }
     }
 }
 
@@ -75,12 +79,15 @@ function gacha() {
     let rng;
     const results = [];
 
+    // Roll 10 times
     for (let i = 0; i < 10; i++) {
+        // SR pity
         if (i == 9 && !results.includes('SR')) {
             results.push('SR');
             break;
         } 
 
+        // Get a number from 0 to 99
         rng = Math.floor(Math.random() * 100);
 
         // R
