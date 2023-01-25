@@ -17,7 +17,6 @@ const help = new EmbedBuilder()
     { name: '/skin', value: 'Displays character\'s skin (default only for now).\n[Source](https://www.pixiv.net/en/artworks/97233960)' },
 )
 .setImage('https://preview.redd.it/a7nuvufkx4w81.jpg?auto=webp&s=dd2a125315afd3f03d4fd38b1e54b0782990fae1')
-.setTimestamp()
 .setFooter({ text: 'nepnep#1358', iconURL: 'https://store.playstation.com/store/api/chihiro/00_09_000/container/BE/nl/19/EP0031-CUSA03124_00-AV00000000000037/image?w=320&h=320&bg_color=000000&opacity=100&_version=00_09_000' });
 
 
@@ -26,6 +25,6 @@ module.exports = {
         .setName('help')
         .setDescription('Displays list of commands'),
     async execute(interaction) {
-        await interaction.editReply({ embeds: [help.setColor(randomColor())] });
+        await interaction.editReply({ embeds: [help.setColor(randomColor()).setTimestamp()] });
     }
 }
