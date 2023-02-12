@@ -1,15 +1,19 @@
 const { SlashCommandBuilder, AttachmentBuilder } = require("discord.js");
 const sharp = require('sharp');
 const Database = require("better-sqlite3");
+const Mutex = require("async-mutex").Mutex;
 const db = Database("./nikke.db");
+
+// Mutex
+const mutex = new Mutex();
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('gacha')
-        .setDescription('Simulate a 10-pull on the standard banner'),
+        .setDescription('Simulate a 10-pull'),
     async execute(interaction) {
-        try {
-                // Gacha
+        await mutex.runExclusive(async () => {
+            // Gacha
             let results = gacha();
             
             // Declare the array of images to composite
@@ -65,10 +69,7 @@ module.exports = {
 
             // Send the image
             await interaction.editReply({ content: `<@${interaction.member.id}>`, files: [file] });
-        } catch (error) {
-            console.error(error);
-			await interaction.editReply({ content: 'There was an error while executing this command!', ephemeral: true });
-        }
+        })
     }
 }
 
