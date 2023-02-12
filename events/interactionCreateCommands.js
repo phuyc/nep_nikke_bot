@@ -9,7 +9,7 @@ module.exports = {
 			return;
 		};
 
-		await interaction.deferReply({ ephemeral: true });
+		await interaction.deferReply();
 
 		const command = interaction.client.commands.get(interaction.commandName);
 
