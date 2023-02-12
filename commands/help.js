@@ -7,13 +7,13 @@ const help = new EmbedBuilder()
 .setDescription('/help')
 .setThumbnail('https://img-10.stickers.cloud/packs/977bc206-85d3-4882-bd71-a8ab12956a4e/webp/c8bf8419-c2e4-4810-ab71-862dfb67614e.webp')
 .addFields(
-    { name: '/gacha :new:', value: 'Simulate a 10-pull on the standard banner'},    
-    { name: '/help', value: 'Displays this message' },
+    { name: '/gacha :new:', value: 'Simulate a 10-pull.'},    
+    { name: '/help', value: 'Displays this message.' },
     { name: '/info', value: 'Displays bot info.' },
     { name: '/list', value: 'Displays lists of characters or skins.'},
     { name: '/nikke', value: 'Looks up a nikke\'s profile\n**Example: /nikke volume**.' },
     { name: '/ping', value: 'Return latency.' },
-    { name: '/relic :new:', value: 'Returns the locations of the lost relics in a chapter' },
+    { name: '/relic :new:', value: 'Returns the locations of the lost relics in a chapter.' },
     { name: '/skin', value: 'Displays character\'s skin (default only for now).\n[Source](https://www.pixiv.net/en/artworks/97233960)' },
 )
 .setImage('https://preview.redd.it/a7nuvufkx4w81.jpg?auto=webp&s=dd2a125315afd3f03d4fd38b1e54b0782990fae1')
