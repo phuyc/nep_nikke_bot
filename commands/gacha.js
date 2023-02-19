@@ -22,12 +22,13 @@ module.exports = {
             // Get a random nikke from the database for each result that has the matching rarity returned by gacha
             for (let i = 0; i < results.length; i++) {
 
-                let name = db.prepare('SELECT name FROM characters WHERE rarity=? ORDER BY RANDOM() LIMIT 1').get(results[i]);
+                let name = db.prepare('SELECT name FROM characters WHERE rarity=? AND hideskills IS NULL ORDER BY RANDOM() LIMIT 1').get(results[i]);
             
                 // Throw Error if can't find any character in the database
                 if (!name) throw new Error('Character not in the database.');
                 
                 // Push images to array
+                // TODO: Edit images in advance
                 images.push(
 
                     // Card Background
