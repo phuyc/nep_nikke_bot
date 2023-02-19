@@ -41,42 +41,49 @@ async function createCharacterSkillEmbed(name) {
         { name: 'RATINGS', value: `**Story (1-7)**: ${RATINGS[json.ratings.storyEarly] ?? json.ratings.storyEarly} **Story (8-13)**: ${RATINGS[json.ratings.storyMid] ?? json.ratings.storyMid}`
                                 + `**Story (14-18)**: ${RATINGS[json.ratings.storyEnd] ?? json.ratings.storyEnd}\n **Boss (solo)**: ${RATINGS[json.ratings.bossSolo] ?? json.ratings.bossSolo} `
                                 + `**Boss (adds)**: ${RATINGS[json.ratings.bossAdds] ?? json.ratings.bossAdds} **PVP**: ${RATINGS[json.ratings.pvp] ?? json.ratings.pvp}`},
-
-        // Normal Attack
-        { name: 'SKILLS', value: `**${SIGHTS[json.weapon] ?? ''}Normal Attack [<:icon_control:1035953548111904768>${json.controlMode}] [<:icon_ammo:1035953602839203942>${json.ammoCapacity} ammo] [<:icon_reload:1035953550150352936> ${json.reloadTime} seconds]:**${basicAttackDescription}`}
     );
-    
-    // Skills
-    for (let i = 0; i < json.skills.length; i++) {
-        let skillEmbed = '';
-        let skillDescriptionLevel10 = '';
-        let skillLevel10;
-        // Add skill's type and name
-        skillEmbed += `**${SLOTS[json.skills[i].slot] ?? json.skills[i].slot}: ${json.skills[i].name}`;
-        
-        // Check for cooldown
-        if (json.skills[i].cooldown) {  
-            skillEmbed += ` [${json.skills[i].cooldown} seconds]`;
-        };
-        
-        skillEmbed += '**\n';
-        
-        // Add skill description 
-        skillLevel10 = JSON.parse(json.skills[i].descriptionLevel10.raw);
-        // Loop through descripton
-        for (let j = 0; j < skillLevel10.content.length; j++) {
-            for (let k = 0; k < skillLevel10.content[j].content.length; k++) {
-                if (skillLevel10.content[j].content[k].value.length > 8) {
-                    skillDescriptionLevel10 += skillLevel10.content[j].content[k].value + '\n';
-                } else {
-                    skillDescriptionLevel10 += skillLevel10.content[j].content[k].value + ' ';
+
+    if (!json.hideSkills) {
+        // Normal Attack
+        profile.addFields({ name: 'SKILLS', value: `**${SIGHTS[json.weapon] ?? ''} Normal Attack [<:icon_control:1035953548111904768>${json.controlMode}] [<:icon_ammo:1035953602839203942>`
+                                                 + `${json.ammoCapacity} ammo] [<:icon_reload:1035953550150352936>${json.reloadTime} seconds]:\n**${basicAttackDescription}`});
+
+        // Skills
+        for (let i = 0; i < json.skills.length; i++) {
+            let skillEmbed = '';
+            let skillDescriptionLevel10 = '';
+            let skillLevel10;
+            // Add skill's type and name
+            skillEmbed += `**${SLOTS[json.skills[i].slot] ?? json.skills[i].slot}: ${json.skills[i].name}`;
+            
+            // Check for cooldown
+            if (json.skills[i].cooldown) {  
+                skillEmbed += ` [${json.skills[i].cooldown} seconds]`;
+            };
+            
+            skillEmbed += '**\n';
+            
+            // Add skill description 
+            skillLevel10 = JSON.parse(json.skills[i].descriptionLevel10.raw);
+            // Loop through descripton
+            for (let j = 0; j < skillLevel10.content.length; j++) {
+                for (let k = 0; k < skillLevel10.content[j].content.length; k++) {
+                    if (skillLevel10.content[j].content[k].value.length > 8) {
+                        skillDescriptionLevel10 += skillLevel10.content[j].content[k].value + '\n';
+                    } else {
+                        skillDescriptionLevel10 += skillLevel10.content[j].content[k].value + ' ';
+                    }
                 }
             }
+            
+            skillEmbed += skillDescriptionLevel10.trim();
+            profile.addFields({ name: '\u200b', value: skillEmbed });
         }
-        
-        skillEmbed += skillDescriptionLevel10.trim();
-        profile.addFields({ name: '\u200b', value: skillEmbed });
+    } else {
+        profile.addFields({ name: 'The skills are not available for this character yet', value: 'We will add them soon as it is possible!'});
     }
+    
+
 
     return profile;
 }
