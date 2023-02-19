@@ -6,9 +6,9 @@ const { autoUpdate } = require("./functions/update");
 
 require("dotenv").config();
 
-// ? Fixed a bug that occurs when bot doesn't have enough permission (./events/interactionCreateButton)
-// TODO Remove buttons from suggestion?
-// TODO Make bot online again after crash
+// TODO Automate updating gacha images
+// TODO Improve the performance of /gacha (lower images quality/add top and bottom to card in advance)
+// TODO Change ephemeral state
 
 const client = new Discord.Client({
 	intents: [GatewayIntentBits.Guilds, 		
