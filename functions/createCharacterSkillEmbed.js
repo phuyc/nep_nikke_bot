@@ -38,15 +38,15 @@ async function createCharacterSkillEmbed(name) {
         { name: '\u200b', value: `**Element**: ${ELEMENTS[json.element] ?? json.element}\n**Burst type**: ${BURSTTYPES[json.burstType] ?? json.burstType}`, inline: true },
         
         // Field 2 (Ratings)                  
-        { name: 'RATINGS', value: `**Story (1-7)**: ${RATINGS[json.ratings.storyEarly] ?? json.ratings.storyEarly} **Story (8-13)**: ${RATINGS[json.ratings.storyMid] ?? json.ratings.storyMid}`
-                                + `**Story (14-18)**: ${RATINGS[json.ratings.storyEnd] ?? json.ratings.storyEnd}\n **Boss (solo)**: ${RATINGS[json.ratings.bossSolo] ?? json.ratings.bossSolo} `
+        { name: 'RATINGS', value: `**Story (Early)**: ${RATINGS[json.ratings.storyMid] ?? json.ratings.storyMid}`
+                                + `**Story (Late)**: ${RATINGS[json.ratings.storyEnd] ?? json.ratings.storyEnd}\n **Boss (solo)**: ${RATINGS[json.ratings.bossSolo] ?? json.ratings.bossSolo} `
                                 + `**Boss (adds)**: ${RATINGS[json.ratings.bossAdds] ?? json.ratings.bossAdds} **PVP**: ${RATINGS[json.ratings.pvp] ?? json.ratings.pvp}`},
     );
 
     if (!json.hideSkills) {
         // Normal Attack
         profile.addFields({ name: 'SKILLS', value: `**${SIGHTS[json.weapon] ?? ''} Normal Attack [<:icon_control:1035953548111904768>${json.controlMode}] [<:icon_ammo:1035953602839203942>`
-                                                 + `${json.ammoCapacity} ammo] [<:icon_reload:1035953550150352936>${json.reloadTime} seconds]:\n**${basicAttackDescription}`});
+                                                 + `${json.ammoCapacity} ammo] [<:icon_reload:1035953550150352936>${json.reloadTime} seconds]:**${basicAttackDescription}`});
 
         // Skills
         for (let i = 0; i < json.skills.length; i++) {
