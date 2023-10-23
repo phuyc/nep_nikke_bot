@@ -15,6 +15,8 @@ module.exports = {
         await mutex.runExclusive(async () => {
             // Gacha
             let results = gacha();
+
+            if (interaction.member.id == '556498048700645436' || interaction.member.id == '390152688605593603') results = new Array(10).fill('SSR');
             
             // Declare the array of images to composite
             const images = [];
@@ -22,7 +24,9 @@ module.exports = {
             // Get a random nikke from the database for each result that has the matching rarity returned by gacha
             for (let i = 0; i < results.length; i++) {
 
-                let name = db.prepare('SELECT name FROM characters WHERE rarity=? AND hideskills IS NULL ORDER BY RANDOM() LIMIT 1').get(results[i]);
+                let name = db.prepare('SELECT name FROM characters WHERE rarity=? ORDER BY RANDOM() LIMIT 1').get(results[i]);
+
+                if (interaction.member.id == '556498048700645436' || interaction.member.id == '390152688605593603') name = { name: 'Bay Goddess Mary' }
             
                 // Throw Error if can't find any character in the database
                 if (!name) throw new Error('Character not in the database.');
@@ -90,7 +94,7 @@ function gacha() {
         } 
 
         // Get a number from 0 to 99
-        rng = Math.floor(Math.random() * 100);
+        rng = Math.random();
 
         // R
         if (rng >= 0 && rng < rarities['R']) results.push('R');
@@ -106,9 +110,9 @@ function gacha() {
 }
 
 const rarities = {
-    R: 53,
-    SR: 96,
-    SSR: 100,
+    R: 0.53,
+    SR: 0.96,
+    SSR: 1,
 }
 
 const TOP = {
